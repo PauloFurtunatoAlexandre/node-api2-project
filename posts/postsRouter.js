@@ -62,7 +62,27 @@ router.get("/:id", (req, res) => {
           .json({ message: "The post with the specified ID does not exist." });
       }
     })
-    .catch();
+    .catch((error) => {
+      console.error(error.message);
+      res
+        .status(404)
+        .json({ error: "The posts information could not be retrieved." });
+    });
+});
+
+router.delete("/:id", (req, res) => {
+  Posts.remove(req.params.id)
+    .then((post) => {
+      if (post > 0) {
+        res.status(200).json({ message: "Post successfully deleted!" });
+      }
+    })
+    .catch((error) => {
+      console.error(error.message);
+      res
+        .status(404)
+        .json({ message: "The post with the specified ID does not exist." });
+    });
 });
 
 module.exports = router;
