@@ -41,6 +41,7 @@ router.get("/", (req, res) => {
   Posts.find()
     .then((post) => {
       console.log(post);
+      res.header({ "Access-Control-Allow-Origin": "*" });
       res.status(200).json(post);
     })
     .catch((error) => {
